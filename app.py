@@ -14,6 +14,11 @@ from scipy.ndimage import (
 )
 from torchvision.transforms import functional as F
 from torchvision.models.detection.mask_rcnn import MaskRCNNPredictor
+import os
+import gdown
+
+
+
 
 # =========================================================
 # PAGE CONFIG
@@ -66,6 +71,22 @@ h1, h2, h3, h4 {
 
 MODEL_PATH = "mango_maskrcnn.pth"
 
+
+@st.cache_resource
+def get_model_file():
+
+    if not os.path.exists(
+        "mango_maskrcnn.pth"
+    ):
+
+        gdown.download(
+            "https://drive.google.com/uc?id=1jAV4hpKG1gitAduyYmC8tE6IKNLlEauw",
+            "mango_maskrcnn.pth",
+            quiet=False
+        )
+
+    return "mango_maskrcnn.pth"
+MODEL_PATH = get_model_file()
 device = torch.device(
     "cuda" if torch.cuda.is_available() else "cpu"
 )
@@ -484,6 +505,7 @@ if (
                     key=f"tree_{idx}"
                 ):
                     st.session_state.selected_tree = idx
+                    st.rerun()
 
         # =====================================================
         # SELECTED TREE
@@ -609,7 +631,7 @@ if (
         )
 
         pseudo_depth_vals = (
-            gray_smoothed[valid_circle]
+            gray[valid_circle]
             / 255.0
         )
 
@@ -619,7 +641,7 @@ if (
         )
 
         pseudo_openings = (
-            (gray_smoothed / 255.0)
+            (gray / 255.0)
             <= pseudo_thresh
         ) & valid_circle
 
@@ -645,7 +667,7 @@ if (
             total_tree_pixels
         ) * 100
         heatmap = cv2.normalize(
-            gray_smoothed,
+            gray,
             None,
             0,
             255,
