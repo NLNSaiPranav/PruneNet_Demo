@@ -348,7 +348,7 @@ if (
 
                     st.image(
                         img_path,
-                        use_column_width=True
+                        width=True
                     )
 
                     st.markdown(
@@ -491,7 +491,7 @@ if (
 
             st.image(
                 overlay,
-                use_column_width=True
+                width=True
             )
 
             st.markdown("### Select Tree")
@@ -778,7 +778,7 @@ if (
 
             st.plotly_chart(
                 fig,
-                use_column_width=True
+                width=True
             )
     with bottom_left:
         with st.container(border=True):
@@ -816,7 +816,7 @@ if (
 
                 st.image(
                     heatmap,
-                    use_column_width=True
+                    width=True
                 )
 
             with scale_col:
@@ -843,7 +843,7 @@ if (
 
                 st.image(
                     scale,
-                    use_column_width=True
+                    width=True
                 )
     with bottom_right:
         with st.container(border=True):
