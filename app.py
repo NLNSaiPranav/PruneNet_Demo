@@ -778,7 +778,7 @@ if (
 
             st.plotly_chart(
                 fig,
-                width=True
+                use_container_width=True
             )
     with bottom_left:
         with st.container(border=True):
