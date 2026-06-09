@@ -491,7 +491,7 @@ if (
 
             st.image(
                 overlay,
-                width=True
+                use_container_width=True
             )
 
             st.markdown("### Select Tree")
@@ -816,7 +816,7 @@ if (
 
                 st.image(
                     heatmap,
-                    width=True
+                    use_container_width=True
                 )
 
             with scale_col:
@@ -843,7 +843,7 @@ if (
 
                 st.image(
                     scale,
-                    width=True
+                    use_container_width=True
                 )
     with bottom_right:
         with st.container(border=True):
