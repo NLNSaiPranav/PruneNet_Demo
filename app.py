@@ -348,7 +348,7 @@ if (
 
                     st.image(
                         img_path,
-                        width=True
+                        use_container_width=True
                     )
 
                     st.markdown(
