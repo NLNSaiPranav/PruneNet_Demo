@@ -784,7 +784,7 @@ if (
         with st.container(border=True):
 
             st.subheader(
-                "Pseudo Depth Heatmap"
+                "Estimated Crown Transparency Depth Heatmap"
             )
 
             scale = np.linspace(
@@ -823,7 +823,7 @@ if (
 
                 cv2.putText(
                     scale,
-                    "Deep",
+                    "Transparent",
                     (2, 20),
                     cv2.FONT_HERSHEY_SIMPLEX,
                     0.45,
@@ -833,7 +833,7 @@ if (
 
                 cv2.putText(
                     scale,
-                    "Shallow",
+                    "Opaque",
                     (2, 390),
                     cv2.FONT_HERSHEY_SIMPLEX,
                     0.45,
