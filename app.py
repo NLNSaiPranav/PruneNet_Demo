@@ -821,14 +821,26 @@ if (
 
             with scale_col:
 
+                text = "Transparent"
+                
+                (text_w, text_h), _ = cv2.getTextSize(
+                    text,
+                    cv2.FONT_HERSHEY_SIMPLEX,
+                    0.45,
+                    1
+                )
+                
+                x = (scale.shape[1] - text_w) // 2
+                
                 cv2.putText(
                     scale,
-                    "Transparent",
-                    (2, 20),
+                    text,
+                    (x, 20),
                     cv2.FONT_HERSHEY_SIMPLEX,
                     0.45,
                     (255,255,255),
-                    1
+                    1,
+                    cv2.LINE_AA
                 )
 
                 cv2.putText(
