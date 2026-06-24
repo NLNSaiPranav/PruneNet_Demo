@@ -820,26 +820,32 @@ if (
                 )
 
             with scale_col:
-
-                bar_width = 30
-                legend_width = 140
-                
-                scale = np.zeros((400, legend_width, 3), dtype=np.uint8)
-                
-                # draw color bar on left
-                scale[:, :bar_width] = gradient
-                
-                # labels on right
-                cv2.putText(scale, "Transparent", (40, 20),
-                            cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255,255,255), 1)
-                
-                cv2.putText(scale, "Opaque", (40, 390),
-                            cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255,255,255), 1)
-
-                st.image(
-                    scale,
-                    use_container_width=True
+            
+                legend = scale.copy()
+            
+                cv2.putText(
+                    legend,
+                    "Transparent",
+                    (5, 20),
+                    cv2.FONT_HERSHEY_SIMPLEX,
+                    0.45,
+                    (255,255,255),
+                    1,
+                    cv2.LINE_AA
                 )
+            
+                cv2.putText(
+                    legend,
+                    "Opaque",
+                    (5, legend.shape[0]-10),
+                    cv2.FONT_HERSHEY_SIMPLEX,
+                    0.45,
+                    (255,255,255),
+                    1,
+                    cv2.LINE_AA
+                )
+            
+                st.image(legend, use_container_width=True)
     with bottom_right:
         with st.container(border=True):
 
