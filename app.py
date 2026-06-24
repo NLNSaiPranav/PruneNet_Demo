@@ -821,37 +821,20 @@ if (
 
             with scale_col:
 
-                text = "Transparent"
+                bar_width = 30
+                legend_width = 140
                 
-                (text_w, text_h), _ = cv2.getTextSize(
-                    text,
-                    cv2.FONT_HERSHEY_SIMPLEX,
-                    0.45,
-                    1
-                )
+                scale = np.zeros((400, legend_width, 3), dtype=np.uint8)
                 
-                x = (scale.shape[1] - text_w) // 2
+                # draw color bar on left
+                scale[:, :bar_width] = gradient
                 
-                cv2.putText(
-                    scale,
-                    text,
-                    (x, 20),
-                    cv2.FONT_HERSHEY_SIMPLEX,
-                    0.45,
-                    (255,255,255),
-                    1,
-                    cv2.LINE_AA
-                )
-
-                cv2.putText(
-                    scale,
-                    "Opaque",
-                    (2, 390),
-                    cv2.FONT_HERSHEY_SIMPLEX,
-                    0.45,
-                    (255,255,255),
-                    1
-                )
+                # labels on right
+                cv2.putText(scale, "Transparent", (40, 20),
+                            cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255,255,255), 1)
+                
+                cv2.putText(scale, "Opaque", (40, 390),
+                            cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255,255,255), 1)
 
                 st.image(
                     scale,
