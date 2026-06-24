@@ -821,31 +821,43 @@ if (
 
             with scale_col:
             
-                legend = scale.copy()
-            
+                # your existing scale image that already contains the colorbar
+                old_scale = scale
+                
+                legend_width = old_scale.shape[1] + 120
+                
+                new_scale = np.zeros(
+                    (old_scale.shape[0], legend_width, 3),
+                    dtype=np.uint8
+                )
+                
+                # put original colorbar on left
+                new_scale[:, :old_scale.shape[1]] = old_scale
+                
+                # labels on right
                 cv2.putText(
-                    legend,
+                    new_scale,
                     "Transparent",
-                    (5, 20),
+                    (old_scale.shape[1] + 10, 20),
                     cv2.FONT_HERSHEY_SIMPLEX,
-                    0.45,
+                    0.5,
                     (255,255,255),
                     1,
                     cv2.LINE_AA
                 )
-            
+                
                 cv2.putText(
-                    legend,
+                    new_scale,
                     "Opaque",
-                    (5, legend.shape[0]-10),
+                    (old_scale.shape[1] + 10, old_scale.shape[0]-10),
                     cv2.FONT_HERSHEY_SIMPLEX,
-                    0.45,
+                    0.5,
                     (255,255,255),
                     1,
                     cv2.LINE_AA
                 )
-            
-                st.image(legend, use_container_width=True)
+                
+                st.image(new_scale, use_container_width=True)
     with bottom_right:
         with st.container(border=True):
 
