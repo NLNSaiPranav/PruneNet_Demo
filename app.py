@@ -842,7 +842,7 @@ if (
                     1,
                     cv2.LINE_AA
                 )
-                st.image(new_scale, use_container_width=True)
+                st.image(scale, use_container_width=True)
     with bottom_right:
         with st.container(border=True):
 
