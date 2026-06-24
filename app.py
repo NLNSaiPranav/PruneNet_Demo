@@ -820,29 +820,13 @@ if (
                 )
 
             with scale_col:
+                st.markdown("<div style='text-align:center'>Transparent</div>",
+                            unsafe_allow_html=True)
             
-                cv2.putText(
-                    scale,
-                    "Transparent",
-                    (2, 15),  # x,y
-                    cv2.FONT_HERSHEY_SIMPLEX,
-                    0.4,
-                    (255,255,255),
-                    1,
-                    cv2.LINE_AA
-                )
-                
-                cv2.putText(
-                    scale,
-                    "Opaque",
-                    (2, scale.shape[0] - 5),
-                    cv2.FONT_HERSHEY_SIMPLEX,
-                    0.4,
-                    (255,255,255),
-                    1,
-                    cv2.LINE_AA
-                )
                 st.image(scale, use_container_width=True)
+            
+                st.markdown("<div style='text-align:center'>Opaque</div>",
+                            unsafe_allow_html=True)
     with bottom_right:
         with st.container(border=True):
 
