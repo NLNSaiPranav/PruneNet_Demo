@@ -666,57 +666,41 @@ if (
             /
             total_tree_pixels
         ) * 100
-        heatmap = cv2.normalize(
-            gray,
-            None,
-            0,
-            255,
-            cv2.NORM_MINMAX
-        ).astype(np.uint8)
-        heatmap = 255 - heatmap
-        heatmap = cv2.applyColorMap(
-            heatmap,
-            cv2.COLORMAP_JET
-        )
-
-        heatmap = cv2.cvtColor(
-            heatmap,
-            cv2.COLOR_BGR2RGB
-        )
-
-        heatmap_masked = np.zeros_like(
-            heatmap
-        )
-
-        heatmap_masked[mask] = heatmap[mask]
-
-        heatmap = heatmap_masked
+        # =====================================================
+        # OPENING OVERLAY
+        # =====================================================
+        
+        overlay = reduced_inscribed_masked_image.copy()
+        
+        # Highlight detected openings in red
+        overlay[pseudo_openings] = [255, 0, 0]
+        
+        # Crop to tree bounding box
         ys, xs = np.where(mask)
-
-        ymin = np.min(ys)
-        ymax = np.max(ys)
-
-        xmin = np.min(xs)
-        xmax = np.max(xs)
-
-        heatmap = heatmap[
+        
+        ymin, ymax = np.min(ys), np.max(ys)
+        xmin, xmax = np.min(xs), np.max(xs)
+        
+        overlay = overlay[
             ymin:ymax+1,
             xmin:xmax+1
         ]
-
-        heatmap = cv2.copyMakeBorder(
-            heatmap,
+        
+        # Add border
+        overlay = cv2.copyMakeBorder(
+            overlay,
             50,
             50,
             50,
             50,
             cv2.BORDER_CONSTANT,
-            value=(0,0,0)
+            value=(0, 0, 0)
         )
-
-        heatmap = cv2.resize(
-            heatmap,
-            (600,600)
+        
+        # Resize for display
+        overlay = cv2.resize(
+            overlay,
+            (600, 600)
         )
     # =====================================================
     # RIGHT PANEL
@@ -784,7 +768,7 @@ if (
         with st.container(border=True):
 
             st.subheader(
-                "Estimated Crown Transparency Depth Heatmap"
+                "Detected Crown Openings"
             )
 
             scale = np.linspace(
@@ -815,7 +799,7 @@ if (
             with heat_col:
 
                 st.image(
-                    heatmap,
+                    overlay,
                     use_container_width=True
                 )
 
