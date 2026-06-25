@@ -560,34 +560,24 @@ if (
         reduced_radius = int(radius * 0.9)
 
         # =====================================================
-        # INSCRIBED REGION
+        # ANALYSIS MASK (distance from boundary)
         # =====================================================
-
-        circle_mask = np.zeros_like(
-            gray,
-            dtype=np.uint8
-        )
-
-        cv2.circle(
-            circle_mask,
-            (center_x, center_y),
-            reduced_radius,
-            255,
-            thickness=-1
-        )
-
+        
+        margin = int(radius * 0.10)   # remove outer 10% of canopy
+        
+        analysis_mask = dist_transform >= margin
+        
         reduced_inscribed_masked_image = cv2.bitwise_and(
             masked_tree,
             masked_tree,
-            mask=circle_mask
+            mask=analysis_mask.astype(np.uint8) * 255
         )
-
         # =====================================================
         # POINT CLOUD
         # =====================================================
 
         circle_y_indices, circle_x_indices = np.where(
-            circle_mask > 0
+            analysis_mask
         )
 
         depth = (
@@ -626,9 +616,7 @@ if (
     # PSEUDO DEPTH OPENINGS
     # =====================================================
 
-        valid_circle = (
-            circle_mask > 0
-        )
+        valid_circle = analysis_mask
 
         pseudo_depth_vals = (
             gray[valid_circle]
