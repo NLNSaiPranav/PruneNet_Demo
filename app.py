@@ -670,7 +670,7 @@ if (
         # OPENING OVERLAY
         # =====================================================
         
-        overlay = reduced_inscribed_masked_image.copy()
+        overlay = masked_tree.copy()
         
         # Highlight detected openings in red
         overlay[pseudo_openings] = [255, 0, 0]
