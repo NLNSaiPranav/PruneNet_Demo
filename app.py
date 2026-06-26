@@ -464,12 +464,6 @@ if (
     # =====================================================
     # OVERLAY
     # =====================================================
-
-    overlay = create_overlay(
-        image_rgb,
-        pred_masks
-    )
-
 # =====================================================
 # QUADRANT LAYOUT
 # =====================================================
@@ -479,6 +473,15 @@ if (
         st.session_state.sample_image = None
         st.session_state.selected_tree = 0
         st.rerun()
+    segmentation_overlay = create_overlay(
+        image_rgb,
+        pred_masks
+    )
+    
+    segmentation_display = cv2.resize(
+        segmentation_overlay,
+        (600,600)
+    )
     col1, col2, col3 = st.columns(3)    
 
     # =====================================================
@@ -488,12 +491,8 @@ if (
     with col1:
         with st.container(border=True):
 
-            st.subheader("Segmentation Overlay")
 
-            st.image(
-                overlay,
-                use_container_width=True
-            )
+            st.subheader("Segmentation Overlay")
             
             st.image(
                 segmentation_display,
@@ -675,38 +674,31 @@ if (
         # OPENING OVERLAY
         # =====================================================
         
-        overlay = masked_tree.copy()
+        opening_overlay = masked_tree.copy()
         
-        # Highlight detected openings in red
-        overlay[pseudo_openings] = [255, 0, 0]
-        
+        opening_overlay[pseudo_openings] = [255, 0, 0]
         # Crop to tree bounding box
         ys, xs = np.where(mask)
         
         ymin, ymax = np.min(ys), np.max(ys)
         xmin, xmax = np.min(xs), np.max(xs)
-        
-        overlay = overlay[
+        opening_overlay = opening_overlay[
             ymin:ymax+1,
             xmin:xmax+1
         ]
         
-        # Add border
-        overlay = cv2.copyMakeBorder(
-            overlay,
-            50,
-            50,
-            50,
-            50,
+        opening_overlay = cv2.copyMakeBorder(
+            opening_overlay,
+            50, 50, 50, 50,
             cv2.BORDER_CONSTANT,
             value=(0, 0, 0)
         )
         
-        # Resize for display
-        overlay = cv2.resize(
-            overlay,
+        opening_overlay = cv2.resize(
+            opening_overlay,
             (600, 600)
         )
+
     # =====================================================
     # RIGHT PANEL
     # =====================================================
@@ -792,29 +784,8 @@ if (
                 "Detected Crown Openings"
             )
 
-            scale = np.linspace(
-                255,
-                0,
-                400
-            ).astype(np.uint8)
-
-            scale = np.tile(
-                scale.reshape(-1, 1),
-                (1, 40)
-            )
-
-            scale = cv2.applyColorMap(
-                scale,
-                cv2.COLORMAP_JET
-            )
-
-            scale = cv2.cvtColor(
-                scale,
-                cv2.COLOR_BGR2RGB
-            )
-
             st.image(
-                overlay,
+                opening_overlay,
                 use_container_width=True
             )
 st.sidebar.markdown("---")
