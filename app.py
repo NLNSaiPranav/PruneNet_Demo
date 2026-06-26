@@ -61,6 +61,9 @@ h1, h2, h3, h4 {
     height: 50px;
     font-size: 18px;
 }
+div[data-testid="stVerticalBlockBorderWrapper"]{
+    height: 760px;
+}
 
 </style>
 """, unsafe_allow_html=True)
@@ -487,9 +490,9 @@ if (
 
             st.subheader("Segmentation Overlay")
 
-            segmentation_display = cv2.resize(
+            st.image(
                 overlay,
-                (600, 600)
+                use_container_width=True
             )
             
             st.image(
@@ -743,7 +746,7 @@ if (
             )
 
             fig.update_layout(
-                height=600,
+                height=700,
                 paper_bgcolor="#0E1117",
                 plot_bgcolor="#0E1117",
                 font=dict(color="white"),
@@ -777,7 +780,10 @@ if (
 
             st.plotly_chart(
                 fig,
-                use_container_width=True
+                use_container_width=True,
+                config={
+                    "displayModeBar": False
+                }
             )
     with col3:
         with st.container(border=True):
@@ -806,12 +812,6 @@ if (
                 scale,
                 cv2.COLOR_BGR2RGB
             )
-
-            heat_col, scale_col = st.columns(
-                [10, 1]
-            )
-
-            with heat_col:
 
                 st.image(
                     overlay,
