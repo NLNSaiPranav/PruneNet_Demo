@@ -590,11 +590,13 @@ if (
 
         depth = depth * 100
 
+        height = gray.shape[0]
+        
         points_3d = np.column_stack(
             (
-                circle_x_indices,
-                circle_y_indices,
-                depth
+                circle_x_indices.astype(np.float32),
+                (height - circle_y_indices).astype(np.float32),
+                depth.astype(np.float32)
             )
         )
 
