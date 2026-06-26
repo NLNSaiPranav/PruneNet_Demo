@@ -312,7 +312,7 @@ The system combines deep learning–based tree segmentation with canopy transpar
 
 -  Automatic tree detection using a fine-tuned Mask R-CNN
 -  Individual canopy extraction and segmentation
--  Detection of crown openings using pseudo-depth analysis
+-  Detection of crown openings using Intensity-Weighted Canopy Projection
 -  Interactive 3D canopy visualization
 -  Quantitative canopy transparency estimation for pruning support
 
