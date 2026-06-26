@@ -788,20 +788,26 @@ if (
                 opening_overlay,
                 use_container_width=True
             )
-st.sidebar.markdown("---")
-st.sidebar.subheader("Results")
+if (
+    uploaded_file is not None
+    or
+    st.session_state.sample_image is not None
+):
 
-st.sidebar.metric(
-    "Opening %",
-    f"{pseudo_opening_percent:.2f}%"
-)
+    st.sidebar.markdown("---")
+    st.sidebar.subheader("Results")
 
-st.sidebar.metric(
-    "Tree Pixels",
-    f"{int(total_tree_pixels):,}"
-)
+    st.sidebar.metric(
+        "Opening %",
+        f"{pseudo_opening_percent:.2f}%"
+    )
 
-st.sidebar.metric(
-    "Opening Pixels",
-    f"{int(pseudo_opening_pixels):,}"
-)
+    st.sidebar.metric(
+        "Tree Pixels",
+        f"{int(total_tree_pixels):,}"
+    )
+
+    st.sidebar.metric(
+        "Opening Pixels",
+        f"{int(pseudo_opening_pixels):,}"
+    )
