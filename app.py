@@ -813,10 +813,10 @@ if (
                 cv2.COLOR_BGR2RGB
             )
 
-                st.image(
-                    overlay,
-                    use_container_width=True
-                )
+            st.image(
+                overlay,
+                use_container_width=True
+            )
 st.sidebar.markdown("---")
 st.sidebar.subheader("Results")
 
