@@ -735,18 +735,31 @@ if (
                 paper_bgcolor="#0E1117",
                 plot_bgcolor="#0E1117",
                 font=dict(color="white"),
-                margin=dict(
-                    l=0,
-                    r=0,
-                    t=20,
-                    b=0
-                ),
+                margin=dict(l=0, r=0, t=20, b=0),
                 scene=dict(
                     bgcolor="#0E1117",
                     xaxis=dict(title="X"),
                     yaxis=dict(title="Y"),
                     zaxis=dict(title="Depth"),
-                    aspectmode="data"
+                    aspectmode="data",
+            
+                    camera=dict(
+                        eye=dict(
+                            x=0,
+                            y=0,
+                            z=2.5
+                        ),
+                        center=dict(
+                            x=0,
+                            y=0,
+                            z=0
+                        ),
+                        up=dict(
+                            x=0,
+                            y=-1,
+                            z=0
+                        )
+                    )
                 )
             )
 
