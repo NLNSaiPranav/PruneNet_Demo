@@ -476,15 +476,16 @@ if (
         st.session_state.sample_image = None
         st.session_state.selected_tree = 0
         st.rerun()
-    top_left, top_right = st.columns(2)
-
-    bottom_left, bottom_right = st.columns(2)
+    col1, col2, col3 = st.columns(
+        [1, 1, 1],
+        gap="medium"
+    )
 
     # =====================================================
     # LEFT PANEL
     # =====================================================
 
-    with top_left:
+    with col1:
         with st.container(border=True):
 
             st.subheader("Segmentation Overlay")
@@ -699,13 +700,13 @@ if (
         # Resize for display
         overlay = cv2.resize(
             overlay,
-            (600, 600)
+            (500, 500)
         )
     # =====================================================
     # RIGHT PANEL
     # =====================================================
 
-    with top_right:
+    with col2:
         with st.container(border=True):
 
             st.subheader(
@@ -740,7 +741,7 @@ if (
             )
 
             fig.update_layout(
-                height=650,
+                height=430,
                 paper_bgcolor="#0E1117",
                 plot_bgcolor="#0E1117",
                 font=dict(color="white"),
@@ -776,7 +777,7 @@ if (
                 fig,
                 use_container_width=True
             )
-    with bottom_left:
+    with col3:
         with st.container(border=True):
 
             st.subheader(
@@ -814,37 +815,20 @@ if (
                     overlay,
                     use_container_width=True
                 )
+st.sidebar.markdown("---")
+st.sidebar.subheader("Results")
 
-            with scale_col:
-                st.markdown("<div style='text-align:center'>Transparent</div>",
-                            unsafe_allow_html=True)
-            
-                st.image(scale, use_container_width=True)
-            
-                st.markdown("<div style='text-align:center'>Opaque</div>",
-                            unsafe_allow_html=True)
-    with bottom_right:
-        with st.container(border=True):
+st.sidebar.metric(
+    "Opening %",
+    f"{pseudo_opening_percent:.2f}%"
+)
 
-            st.subheader("Results")
-            st.metric(
-                "Opening %",
-                round(
-                    pseudo_opening_percent,
-                    2
-                )
-            )
+st.sidebar.metric(
+    "Tree Pixels",
+    f"{int(total_tree_pixels):,}"
+)
 
-            c1, c2 = st.columns(2)
-
-            with c1:
-                st.metric(
-                    "Tree Pixels",
-                    int(total_tree_pixels)
-                )
-
-            with c2:
-                st.metric(
-                    "Opening Pixels",
-                    int(pseudo_opening_pixels)
-                )
+st.sidebar.metric(
+    "Opening Pixels",
+    f"{int(pseudo_opening_pixels):,}"
+)
