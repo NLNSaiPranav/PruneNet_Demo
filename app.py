@@ -590,15 +590,24 @@ if (
 
         depth = depth * 100
 
-        height = gray.shape[0]
+        height, width = gray.shape
+        
+        x = circle_x_indices.astype(np.float32)
+        y = circle_y_indices.astype(np.float32)
+        
+        # Invert image Y-axis
+        y = height - y
+        
+        # Rotate 180° in the XY plane
+        x = width - x
+        y = height - y
         
         points_3d = np.column_stack(
-            (
-                circle_x_indices.astype(np.float32),
-                (height - circle_y_indices).astype(np.float32),
-                depth.astype(np.float32)
-            )
-        )
+        (
+            x,
+            y,
+            depth.astype(np.float32)
+        ))
 
         sorted_indices = np.argsort(-depth)
 
