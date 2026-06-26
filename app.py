@@ -476,10 +476,7 @@ if (
         st.session_state.sample_image = None
         st.session_state.selected_tree = 0
         st.rerun()
-    col1, col2, col3 = st.columns(
-        [1, 1, 1],
-        gap="medium"
-    )
+    col1, col2, col3 = st.columns(3)    
 
     # =====================================================
     # LEFT PANEL
@@ -490,8 +487,13 @@ if (
 
             st.subheader("Segmentation Overlay")
 
-            st.image(
+            segmentation_display = cv2.resize(
                 overlay,
+                (600, 600)
+            )
+            
+            st.image(
+                segmentation_display,
                 use_container_width=True
             )
 
@@ -700,7 +702,7 @@ if (
         # Resize for display
         overlay = cv2.resize(
             overlay,
-            (500, 500)
+            (600, 600)
         )
     # =====================================================
     # RIGHT PANEL
@@ -741,7 +743,7 @@ if (
             )
 
             fig.update_layout(
-                height=430,
+                height=600,
                 paper_bgcolor="#0E1117",
                 plot_bgcolor="#0E1117",
                 font=dict(color="white"),
