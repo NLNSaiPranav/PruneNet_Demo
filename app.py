@@ -738,7 +738,7 @@ if (
             )
 
             fig.update_layout(
-                height=700,
+                height=500,
                 paper_bgcolor="#0E1117",
                 plot_bgcolor="#0E1117",
                 font=dict(color="white"),
