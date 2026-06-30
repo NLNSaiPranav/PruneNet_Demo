@@ -301,54 +301,55 @@ confidence_threshold = st.sidebar.slider(
 # =========================================================
 
 st.title("Interactive Tree Canopy Analysis")
-st.markdown("""
-### 🌳 Welcome to PruneNet
 
-PruneNet is an interactive computer vision platform for automated orchard canopy analysis from UAV imagery.
 
-The system combines deep learning–based tree segmentation with canopy transparency estimation to identify trees that may require pruning. Each detected tree can be explored individually through an interactive 3D canopy visualization and projected canopy opening analysis.
-
-#### Features
-
--  Automatic tree detection using a fine-tuned Mask R-CNN
--  Individual canopy extraction and segmentation
--  Detection of crown openings using Intensity-Weighted Canopy Projection
--  Interactive 3D canopy visualization
--  Quantitative canopy transparency estimation for pruning support
-
-#### Getting Started
-
-Choose one of the sample images below or upload your own aerial RGB image from the sidebar to begin exploring individual tree canopies.
-""")
-c1, c2, c3 = st.columns(3)
-
-with c1:
-    st.info("""
-### 🌲 Tree Segmentation
-
-Detects individual tree canopies using a fine-tuned Mask R-CNN.
-""")
-
-with c2:
-    st.info("""
-### ☁️ 3D Canopy Analysis
-
-Builds a Intensity-Weighted Canopy Projection from RGB imagery.
-""")
-
-with c3:
-    st.info("""
-### ✂️ Pruning Support
-
-Estimates canopy openings and transparency to support pruning decisions.
-""")
 
 if (
     uploaded_file is None
     and
     st.session_state.sample_image is None
 ):
-
+    st.markdown("""
+    ### 🌳 Welcome to PruneNet
+    
+    PruneNet is an interactive computer vision platform for automated orchard canopy analysis from UAV imagery.
+    
+    The system combines deep learning–based tree segmentation with canopy transparency estimation to identify trees that may require pruning. Each detected tree can be explored individually through an interactive 3D canopy visualization and projected canopy opening analysis.
+    
+    #### Features
+    
+    -  Automatic tree detection using a fine-tuned Mask R-CNN
+    -  Individual canopy extraction and segmentation
+    -  Detection of crown openings using Intensity-Weighted Canopy Projection
+    -  Interactive 3D canopy visualization
+    -  Quantitative canopy transparency estimation for pruning support
+    
+    #### Getting Started
+    
+    Choose one of the sample images below or upload your own aerial RGB image from the sidebar to begin exploring individual tree canopies.
+    """)
+    c1, c2, c3 = st.columns(3)
+    
+    with c1:
+        st.info("""
+    ### 🌲 Tree Segmentation
+    
+    Detects individual tree canopies using a fine-tuned Mask R-CNN.
+    """)
+    
+    with c2:
+        st.info("""
+    ### ☁️ 3D Canopy Analysis
+    
+    Builds a Intensity-Weighted Canopy Projection from RGB imagery.
+    """)
+    
+    with c3:
+        st.info("""
+    ### ✂️ Pruning Support
+    
+    Estimates canopy openings and transparency to support pruning decisions.
+    """)
     st.markdown("## Featured Samples")
 
     sample_paths = []
